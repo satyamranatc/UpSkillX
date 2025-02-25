@@ -68,7 +68,7 @@ const UserController = {
           }),
           user: savedUser,
         };
-        res.json(Res);
+        res.status(201).json(Res);
       } catch (err) {
         res.status(500).json({ message: err.message });
       }
