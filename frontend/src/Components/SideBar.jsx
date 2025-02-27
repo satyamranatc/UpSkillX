@@ -6,8 +6,8 @@ import {
   Coffee, 
   Mail, 
   Info,
-  Menu,
-  X
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 const SideBar = () => {
@@ -27,62 +27,78 @@ const SideBar = () => {
   };
 
   return (
-    <>
-      {/* Mobile menu button */}
-      <button 
-        className="fixed top-4 left-4 z-50 md:hidden bg-white p-2 rounded-full shadow-md"
-        onClick={toggleSidebar}
-      >
-        {isCollapsed ? <Menu size={20} /> : <X size={20} />}
-      </button>
-
-      {/* Sidebar */}
-      <div className={`
-        fixed top-0 left-0 h-screen bg-gray-800 text-white transition-all duration-300 z-40
-        ${isCollapsed ? 'w-0 md:w-16 overflow-hidden' : 'w-64'}
-      `}>
-        <div className="flex flex-col h-full">
-          {/* Logo area */}
-          <div className="flex items-center justify-center h-20 bg-gray-900">
-            <h1 className={`text-xl font-bold ${isCollapsed ? 'hidden md:hidden' : 'block'}`}>LearnPro</h1>
-            <span className={`text-xl font-bold ${isCollapsed ? 'hidden md:block' : 'hidden'}`}>LP</span>
+    <div className={`
+      h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out
+      ${isCollapsed ? 'w-20' : 'w-64'}
+    `}>
+      <div className="flex flex-col h-full">
+        {/* Logo area */}
+        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-100">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+              LP
+            </div>
+            {!isCollapsed && (
+              <h1 className="ml-3 text-lg font-semibold text-gray-800">LearnPro</h1>
+            )}
           </div>
+          
+          {/* Toggle button integrated into header */}
+          <button 
+            onClick={toggleSidebar}
+            className="p-1 rounded text-gray-500 hover:bg-gray-100 focus:outline-none"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          </button>
+        </div>
 
-          {/* Navigation menu */}
-          <nav className="flex-1 overflow-y-auto py-4">
-            <ul className="space-y-2 px-2">
-              {menuItems.map((item) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <li key={item.title}>
-                    <Link
-                      to={item.path}
-                      className={`
-                        flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors
-                        ${isActive ? 'bg-blue-600 text-white' : ''}
-                      `}
-                    >
-                      <span className="mr-3">{item.icon}</span>
-                      <span className={isCollapsed ? 'hidden md:hidden' : 'block'}>{item.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+        {/* Navigation menu */}
+        <nav className="flex-1 overflow-y-auto py-4">
+          <ul className="space-y-1 px-3">
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <li key={item.title}>
+                  <Link
+                    to={item.path}
+                    className={`
+                      flex items-center py-2 px-3 rounded-lg transition-colors
+                      ${isActive 
+                        ? 'bg-indigo-50 text-indigo-700 font-medium' 
+                        : 'text-gray-700 hover:bg-gray-100'}
+                      ${isCollapsed ? 'justify-center' : ''}
+                    `}
+                    title={isCollapsed ? item.title : ""}
+                  >
+                    <span className={`${isActive ? 'text-indigo-600' : 'text-gray-500'}`}>
+                      {item.icon}
+                    </span>
+                    {!isCollapsed && (
+                      <span className="ml-3">{item.title}</span>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-          {/* Toggle button for larger screens */}
-          <div className="hidden md:flex justify-center p-4 border-t border-gray-700">
-            <button 
-              onClick={toggleSidebar}
-              className="p-2 rounded-full hover:bg-gray-700 transition-colors"
-            >
-              {isCollapsed ? <Menu size={20} /> : <X size={20} />}
-            </button>
+        {/* Footer area */}
+        <div className="p-4 border-t border-gray-100">
+          <div className={`flex ${isCollapsed ? 'justify-center' : 'items-center'}`}>
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+              <span className="text-sm font-medium text-gray-700">US</span>
+            </div>
+            {!isCollapsed && (
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-700">User Settings</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

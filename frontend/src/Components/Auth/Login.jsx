@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import axios from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
+    
     console.log({ email, password, rememberMe });
+    let Res = await axios.post("http://localhost:5500/api/users/login",{
+      email,
+      password
+    });
+
+    if(Res.data.token){
+      localStorage.setItem('token', Res.data.token);
+      localStorage.setItem('user', JSON.stringify(Res.data.user));
+      navigate("/");
+    }
+
   };
 
   return (
