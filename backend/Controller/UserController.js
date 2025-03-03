@@ -32,12 +32,14 @@ const UserController = {
 
       if (!user) {
         res.json({ message: "User not found!" });
+        return;
       }
 
       let validPassword = await bcrypt.compare(password, user.password);
 
       if (!validPassword) {
         res.json({ message: "Invalid password!" });
+        return;
       }
 
       let token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {

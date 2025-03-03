@@ -24,6 +24,10 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(Res.data.user));
       navigate("/");
     }
+    else
+    {
+      alert(Res.data.message);
+    }
 
   };
 
