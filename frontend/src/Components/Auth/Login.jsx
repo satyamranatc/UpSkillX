@@ -22,6 +22,9 @@ const Login = () => {
     if(Res.data.token){
       localStorage.setItem('token', Res.data.token);
       localStorage.setItem('user', JSON.stringify(Res.data.user));
+      console.log(
+        "User logged in successfully. Welcome back, " +  JSON.stringify(Res.data.user)
+      )
       navigate("/");
     }
     else

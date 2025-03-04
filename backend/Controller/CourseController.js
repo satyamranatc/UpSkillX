@@ -1,15 +1,16 @@
 import Course from "../Models/Course.js"
 
-let CourseController=  {
-    getAllCourses(req, res) {
+const CourseController=  {
+   async getAllCourses(req, res) {
 
       try
       {
-        let data = Course.find({});
+        let CoursesData = await Course.find({});
         res.json({
-          data: data,
+          data: CoursesData,
           message: "All courses fetched successfully"
         });
+
       }
       catch(err)
       {
@@ -20,10 +21,10 @@ let CourseController=  {
       
     },
 
-    getAllCourses(req, res) {
+    async getCourses(req, res) {
       try
       {
-        let data = Course.findById(req.params.cid);
+        let data = await Course.findById(req.params.cid);
         res.json({
           data: data,
           message: "Course fetched successfully"
