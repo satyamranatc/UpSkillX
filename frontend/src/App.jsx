@@ -7,10 +7,13 @@ import SideBar from "./Components/SideBar.jsx"
 
 import Home from "./Pages/Home.jsx"
 import Courses from "./Pages/Courses.jsx"
+import EnrollCourse from "./Pages/EnrollCourse.jsx"
 import About from "./Pages/About.jsx"
 
 import Login from "./Components/Auth/Login.jsx"
 import SignUp from "./Components/Auth/SignUp.jsx"
+import Profile from './Components/Profile.jsx'
+import Settings from './Components/Settings.jsx'
 
 export default function App() {
   return (
@@ -20,6 +23,9 @@ export default function App() {
           {/* Auth routes without SideBar */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+
           
           {/* Main routes with NavBar and SideBar */}
           <Route 
@@ -30,6 +36,11 @@ export default function App() {
           <Route 
             path="/courses" 
             element={<MainLayout><Courses /></MainLayout>} 
+          />
+
+          <Route 
+            path="/courses/enroll/:cid" 
+            element={<MainLayout><EnrollCourse /></MainLayout>} 
           />
 
           <Route 

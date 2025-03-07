@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function Courses() {
     const [courses, setCourses] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    let navigate = useNavigate();
 
     useEffect(() => {
         // Fetch Token from local storage:
@@ -66,7 +69,9 @@ export default function Courses() {
                                     ₹{course.price.toLocaleString()}
                                 </span>
                             </div>
-                            <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+                            <button onClick={()=>{
+                                navigate(`/courses/enroll/${course._id}`)
+                            }}  className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
                                 Enroll Now
                             </button>
                         </div>
