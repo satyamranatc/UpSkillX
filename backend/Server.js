@@ -9,6 +9,7 @@ import authMiddleware from './Middleware/authMiddleware.js'
 
 import UserRoute from "./Routes/UserRoute.js"
 import CourseRoute from "./Routes/CourseRoute.js"
+import EnrollRoute from "./Routes/EnrollRoute.js"
 
 
 const app = express();
@@ -25,11 +26,9 @@ app.get('/', (req,res)=>{
 })
 
 app.use('/api/users', UserRoute);
-// app.use('/api/courses' ,authMiddleware,CourseRoute);
 app.use('/api/courses' ,CourseRoute);
-
-
-
+// app.use('/api/courses' ,authMiddleware,CourseRoute);
+app.use('/api/enroll' ,EnrollRoute);
 
 
 
